@@ -93,7 +93,20 @@ def status():
         pass
     emit('DNS', hx(' / '.join(dns) or '未设置'))
     bluetooth = bool(glob.glob('/sys/class/bluetooth/hci*'))
-    emit('BT', int(bluetooth and bool(shutil.which('bluetoothctl'))))
+    btctl = shutil.which('bluetoothctl')
+    bt_powered = False
+    bt_connected = False
+    bt_name = ''
+    if bluetooth and btctl:
+        try:
+            info = run([btctl, 'show'], timeout=5, check=False)
+            bt_powered = bool(re.search(r'^\s*Powered:\s*yes\s*$', info, re.M))
+            bt_connected = bool(re.search(r'^\s*Connected:\s*yes\s*$', info, re.M))
+            match = re.search(r'^\s*Name:\s*(.+)$', info, re.M)
+            bt_name = match.group(1).strip() if match else ''
+        except (OSError, RuntimeError, subprocess.TimeoutExpired):
+            pass
+    emit('BT', int(bluetooth), int(bt_powered), int(bt_connected), hx(bt_name))
     emit('HOTSPOT', int(bool(shutil.which('hostapd'))))
 
 
@@ -165,6 +178,81 @@ def connect(ssid, password, security):
         raise
 
 
+
+def bluetoothctl(*args, timeout=12, check=True):
+    tool = shutil.which('bluetoothctl')
+    if not tool:
+        raise RuntimeError('????? bluetoothctl / BlueZ')
+    text = run([tool] + list(args), timeout=timeout, check=check)
+    if re.search(r'\bFailed\b|\bnot available\b|\bnot ready\b', text, re.I):
+        raise RuntimeError('Bluetooth ???????????? BlueZ ??')
+    return text
+
+
+def bt_mac(value):
+    if not re.fullmatch(r'(?:[0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}', value):
+        raise ValueError('Bluetooth address invalid')
+    return value.upper()
+
+
+def bluetooth_status():
+    paths = sorted(glob.glob('/sys/class/bluetooth/hci*'))
+    if not paths or not shutil.which('bluetoothctl'):
+        emit('ERROR', hx('Bluetooth adapter or BlueZ service unavailable'))
+        return
+    info = bluetoothctl('show', timeout=5)
+    powered = int(bool(re.search(r'^\s*Powered:\s*yes\s*$', info, re.M)))
+    connected = int(bool(re.search(r'^\s*Connected:\s*yes\s*$', info, re.M)))
+    match = re.search(r'^\s*Name:\s*(.+)$', info, re.M)
+    emit('BT', 1, powered, connected, hx(match.group(1).strip() if match else ''))
+
+
+def bluetooth_scan():
+    bluetoothctl('power', 'on', timeout=8)
+    bluetoothctl('scan', 'on', timeout=8)
+    time.sleep(5)
+    bluetoothctl('scan', 'off', timeout=8, check=False)
+    devices = bluetoothctl('devices', timeout=8)
+    count = 0
+    for line in devices.splitlines():
+        match = re.match(r'^Device\s+((?:[0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2})\s+(.+)$', line.strip())
+        if not match:
+            continue
+        mac, name = match.group(1).upper(), match.group(2).strip()
+        if not name or len(name.encode('utf-8')) > 96:
+            name = mac
+        detail = bluetoothctl('info', mac, timeout=5, check=False)
+        paired = int(bool(re.search(r'^\s*Paired:\s*yes\s*$', detail, re.M)))
+        connected = int(bool(re.search(r'^\s*Connected:\s*yes\s*$', detail, re.M)))
+        emit('BTDEV', mac, -1, paired, connected, hx(name))
+        count += 1
+        if count >= 16:
+            break
+    emit('OK', hx('Bluetooth scan complete' if count else 'No Bluetooth devices found'))
+
+
+def bluetooth_operation(operation, args):
+    if operation == 'bt-status' and not args:
+        bluetooth_status()
+    elif operation in ('bt-on', 'bt-off') and not args:
+        bluetoothctl('power', 'on' if operation == 'bt-on' else 'off', timeout=8)
+        emit('OK', hx('Bluetooth enabled' if operation == 'bt-on' else 'Bluetooth disabled'))
+    elif operation == 'bt-scan' and not args:
+        bluetooth_scan()
+    elif operation in ('bt-pair', 'bt-connect', 'bt-disconnect', 'bt-unpair') and len(args) == (0 if operation == 'bt-disconnect' else 1):
+        mac = bt_mac(args[0]) if args else None
+        if operation == 'bt-pair':
+            bluetoothctl('pair', mac, timeout=35)
+        elif operation == 'bt-connect':
+            bluetoothctl('connect', mac, timeout=25)
+        elif operation == 'bt-unpair':
+            bluetoothctl('remove', mac, timeout=12)
+        else:
+            bluetoothctl('disconnect', timeout=12)
+        emit('OK', hx('Bluetooth operation completed'))
+    else:
+        raise ValueError('unsupported Bluetooth operation')
+
 def main():
     request = sys.stdin.readline(4097)
     if len(request) > 4096:
@@ -222,6 +310,8 @@ def main():
             run(['wpa_cli', '-i', 'wlan0', 'terminate'], check=False)
             run(['ip', 'link', 'set', 'wlan0', 'down'])
         emit('OK', hx('Wi-Fi 已开启' if operation == 'wifi-on' else 'Wi-Fi 已关闭'))
+    elif operation.startswith('bt-'):
+        bluetooth_operation(operation, args[1:])
     elif operation in ('ethernet-on', 'ethernet-off') and len(args) == 1:
         interfaces = sorted(os.path.basename(path) for path in glob.glob('/sys/class/net/eth*')
                             if re.fullmatch(r'eth[0-9]+', os.path.basename(path)))

@@ -19,6 +19,7 @@ static lv_obj_t * detail_body;
 static lv_obj_t * message;
 static lv_obj_t * wifi_value;
 static lv_obj_t * ethernet_value;
+static lv_obj_t * bluetooth_value;
 static lv_obj_t * wifi_toggle;
 static lv_obj_t * wifi_power;
 static lv_obj_t * detail_toggle;
@@ -43,6 +44,8 @@ static bool busy;
 static bool status_after_job;
 static bool scan_when_idle;
 static bool bluetooth_present;
+static bool bluetooth_enabled;
+static bool bluetooth_connected;
 static bool hotspot_present;
 static char ssid[100];
 static char wifi_ip[64] = "-";
@@ -207,6 +210,7 @@ static void update_home(void)
         if(wifi_enabled && ssid[0]) lv_obj_clear_flag(home_connection_icons[i], LV_OBJ_FLAG_HIDDEN);
         else lv_obj_add_flag(home_connection_icons[i], LV_OBJ_FLAG_HIDDEN);
     }
+    if(bluetooth_value) lv_label_set_text(bluetooth_value, !bluetooth_present ? "No adapter" : bluetooth_enabled ? (bluetooth_connected ? "Connected" : "On") : "Off");
     if(detail_wifi_value) lv_label_set_text(detail_wifi_value,
         !wifi_present ? "未检测到无线网卡" : !wifi_enabled ? "Wi-Fi 已关闭" : ssid[0] ? ssid : "选择一个网络…");
     if(wifi_enabled) lv_obj_add_state(wifi_toggle, LV_STATE_CHECKED);
@@ -252,6 +256,30 @@ static void navigation_cb(lv_event_t * event)
             request(scan ? "scan" : "status", NULL);
         }
     }
+}
+
+static void bluetooth_power_cb(lv_event_t * event)
+{
+    (void)event;
+    if(!busy) request(bluetooth_enabled ? "bt-off" : "bt-on", NULL);
+}
+
+static void bluetooth_scan_cb(lv_event_t * event)
+{
+    (void)event;
+    if(!busy && bluetooth_present && bluetooth_enabled) request("bt-scan", NULL);
+    else if(!bluetooth_present) show_message("Bluetooth adapter not found", true);
+    else show_message("Turn Bluetooth on first", false);
+}
+
+static void bluetooth_device_cb(lv_event_t * event)
+{
+    if(busy) return;
+    size_t index = (size_t)(uintptr_t)lv_event_get_user_data(event);
+    if(index >= network_service.state.bluetooth_count) return;
+    const char * operation = network_service.state.bluetooth_devices[index].paired ? "bt-connect" : "bt-pair";
+    hachimi_wifi_credentials_t credentials = {network_service.state.bluetooth_devices[index].address, "", "OPEN"};
+    request(operation, &credentials);
 }
 
 static void scan_cb(lv_event_t * event)
@@ -532,8 +560,26 @@ static void render_detail(void)
     else if(view == VIEW_BLUETOOTH) {
         lv_obj_set_style_bg_opa(detail_body, LV_OPA_COVER, 0);
         lv_obj_set_style_radius(detail_body, 16, 0);
-        label(detail_body, bluetooth_present ? "蓝牙服务可用" : "未检测到可用的蓝牙适配器", 18, 22, 510, 30, false);
-        label(detail_body, "此设备尚未启用蓝牙连接服务。\n需要系统提供蓝牙适配器和 BlueZ 服务后才能配对设备。", 18, 72, 510, 90, true);
+        lv_obj_add_flag(detail_body, LV_OBJ_FLAG_SCROLLABLE);
+        lv_obj_set_scroll_dir(detail_body, LV_DIR_VER);
+        lv_obj_set_scrollbar_mode(detail_body, LV_SCROLLBAR_MODE_AUTO);
+        label(detail_body, !bluetooth_present ? "No Bluetooth adapter / BlueZ" : bluetooth_enabled ? (bluetooth_connected ? "Bluetooth connected" : "Bluetooth on") : "Bluetooth off", 16, 10, 510, 28, false);
+        button(detail_body, bluetooth_enabled ? "Turn Bluetooth off" : "Turn Bluetooth on", 0, 48, 250, bluetooth_power_cb, NULL);
+        button(detail_body, "Scan devices", 264, 48, 250, bluetooth_scan_cb, NULL);
+        label(detail_body, "Nearby devices", 16, 94, 510, 22, true);
+        size_t count = network_service.state.bluetooth_count;
+        if(!count) label(detail_body, bluetooth_enabled ? "Scan to find nearby headphones, keyboards and phones." : "Turn Bluetooth on to scan nearby devices.", 16, 126, 510, 50, true);
+        for(size_t i = 0; i < count; ++i) {
+            const char * name = network_service.state.bluetooth_devices[i].name;
+            char subtitle[64];
+            snprintf(subtitle, sizeof(subtitle), "%s ? %s", network_service.state.bluetooth_devices[i].address,
+                     network_service.state.bluetooth_devices[i].paired ? "Paired" : "Not paired");
+            int y = 126 + (int)i * 56;
+            lv_obj_t * row = panel(detail_body, 0, y, lv_obj_get_width(root) - 28, 50);
+            label(row, name[0] ? name : "Bluetooth device", 12, 4, 330, 20, false);
+            label(row, subtitle, 12, 26, 330, 18, true);
+            button(row, network_service.state.bluetooth_devices[i].paired ? "Connect" : "Pair", 364, 9, 142, bluetooth_device_cb, (void *)(uintptr_t)i);
+        }
     }
     else {
         lv_obj_set_style_bg_opa(detail_body, LV_OPA_COVER, 0);
@@ -550,6 +596,8 @@ static bool apply_network_state(void)
     wifi_present = state->wifi_present;
     wifi_enabled = state->wifi_enabled;
     bluetooth_present = state->bluetooth_present;
+    bluetooth_enabled = state->bluetooth_enabled;
+    bluetooth_connected = state->bluetooth_connected;
     hotspot_present = state->hotspot_present;
     memcpy(ssid, state->ssid, sizeof(ssid));
     memcpy(wifi_ip, state->wifi_ip, sizeof(wifi_ip));
@@ -676,6 +724,7 @@ void ios_network_create(lv_obj_t * parent, const lv_font_t * font, const lv_font
         lv_obj_set_style_text_align(value, LV_TEXT_ALIGN_RIGHT, 0);
         glyph(row, LV_SYMBOL_RIGHT, 524, 14, 0x8E8E93);
         if(i < 2) divider(other, 48, ((int)i + 1) * 40, 506);
+        if(i == 0) bluetooth_value = value;
         if(i == 1) ethernet_value = value;
     }
     detail = lv_obj_create(root);

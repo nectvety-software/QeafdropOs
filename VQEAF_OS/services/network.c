@@ -38,7 +38,7 @@ void hachimi_network_init(hachimi_network_service_t * service)
 bool hachimi_network_request(hachimi_network_service_t * service, const char * operation,
                               const hachimi_wifi_credentials_t * credentials)
 {
-    static const char * allowed[] = {"status", "scan", "wifi-on", "wifi-off", "connect", "disconnect", "reconnect", "ethernet-on", "ethernet-off"};
+    static const char * allowed[] = {"status", "scan", "wifi-on", "wifi-off", "connect", "disconnect", "reconnect", "ethernet-on", "ethernet-off", "bt-status", "bt-on", "bt-off", "bt-scan", "bt-pair", "bt-connect", "bt-disconnect", "bt-unpair"};
     bool valid = false;
     for(size_t i = 0; i < sizeof(allowed) / sizeof(allowed[0]); i++)
         if(strcmp(operation, allowed[i]) == 0) valid = true;
@@ -54,6 +54,14 @@ bool hachimi_network_request(hachimi_network_service_t * service, const char * o
         encode_hex(password, credentials->password);
         snprintf(payload, sizeof(payload), "%s\t%s\t%s", ssid, password, credentials->security);
         memset(password, 0, sizeof(password));
+    } else if(strcmp(operation, "bt-pair") == 0 || strcmp(operation, "bt-connect") == 0 || strcmp(operation, "bt-unpair") == 0) {
+        if(credentials == NULL || credentials->ssid == NULL || strlen(credentials->ssid) != 17) return false;
+        for(size_t i = 0; i < 17; ++i) {
+            char c = credentials->ssid[i];
+            if(i % 3 == 2) { if(c != ':') return false; }
+            else if(!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))) return false;
+        }
+        snprintf(payload, sizeof(payload), "%s", credentials->ssid);
     }
     bool started = hachimi_job_start(&service->job, HACHIMI_HELPER_NETWORK, operation,
                                      credentials ? payload : NULL);
@@ -69,6 +77,7 @@ bool hachimi_network_poll(hachimi_network_service_t * service)
     service->failed = !service->job.success;
     service->message[0] = '\0';
     if(strcmp(service->operation, "scan") == 0) state->network_count = 0;
+    if(strcmp(service->operation, "bt-scan") == 0) state->bluetooth_count = 0;
     if(strcmp(service->operation, "status") == 0) {
         state->ethernet_details[0] = '\0';
         strcpy(state->ethernet_ip, "未连接");
@@ -108,7 +117,22 @@ bool hachimi_network_poll(hachimi_network_service_t * service)
         }
         else if(count == 2 && strcmp(fields[0], "ROUTE") == 0) decode_hex(state->route, sizeof(state->route), fields[1]);
         else if(count == 2 && strcmp(fields[0], "DNS") == 0) decode_hex(state->dns, sizeof(state->dns), fields[1]);
-        else if(count == 2 && strcmp(fields[0], "BT") == 0) state->bluetooth_present = atoi(fields[1]) != 0;
+        else if((count == 2 || count == 5) && strcmp(fields[0], "BT") == 0) {
+            state->bluetooth_present = atoi(fields[1]) != 0;
+            if(count == 5) {
+                state->bluetooth_enabled = atoi(fields[2]) != 0;
+                state->bluetooth_connected = atoi(fields[3]) != 0;
+                decode_hex(state->bluetooth_name, sizeof(state->bluetooth_name), fields[4]);
+            }
+        }
+        else if(count == 6 && strcmp(fields[0], "BTDEV") == 0 && state->bluetooth_count < 16) {
+            size_t i = state->bluetooth_count++;
+            snprintf(state->bluetooth_devices[i].address, sizeof(state->bluetooth_devices[i].address), "%s", fields[1]);
+            state->bluetooth_devices[i].signal = atoi(fields[2]);
+            state->bluetooth_devices[i].paired = atoi(fields[3]) != 0;
+            state->bluetooth_devices[i].connected = atoi(fields[4]) != 0;
+            decode_hex(state->bluetooth_devices[i].name, sizeof(state->bluetooth_devices[i].name), fields[5]);
+        }
         else if(count == 2 && strcmp(fields[0], "HOTSPOT") == 0) state->hotspot_present = atoi(fields[1]) != 0;
         else if(count == 4 && strcmp(fields[0], "AP") == 0 && state->network_count < HACHIMI_NETWORK_MAX_APS) {
             hachimi_access_point_t * ap = &state->networks[state->network_count++];

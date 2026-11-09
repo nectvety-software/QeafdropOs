@@ -6,7 +6,10 @@
 typedef struct { char ssid[100]; char security[16]; int signal; } hachimi_access_point_t;
 typedef struct { const char * ssid; const char * password; const char * security; } hachimi_wifi_credentials_t;
 typedef struct {
-    bool wifi_present, wifi_enabled, bluetooth_present, hotspot_present;
+    bool wifi_present, wifi_enabled, bluetooth_present, bluetooth_enabled, bluetooth_connected, hotspot_present;
+    char bluetooth_name[100];
+    struct { char address[18]; char name[100]; int signal; bool paired, connected; } bluetooth_devices[16];
+    size_t bluetooth_count;
     bool ethernet_present, ethernet_enabled, ethernet_connected;
     char ethernet_iface[32];
     char ssid[100], wifi_ip[64], wifi_mac[32], wifi_state[40];
