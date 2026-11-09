@@ -1,0 +1,30 @@
+# run 2026-10-31T23:41:18Z parts: boot:76 system:85
+# serial ca1af25d
+# fingerprint Xiaomi/violet/violet:13/TQ3A.230901.001.B1/0819:userdebug/release-keys
+dump boot (/dev/block/mmcblk0p76, 67108864 bytes)
+ok boot sha1 095a4b3fa5f4f942d4461aa5108bd233d0e3982e (67108864 bytes)
+dump system (/dev/block/mmcblk0p85, 3758096384 bytes)
+# run 2026-10-31T23:44:57Z parts: boot:76 system:85
+# serial ca1af25d
+# fingerprint Xiaomi/violet/violet:13/TQ3A.230901.001.B1/0819:userdebug/release-keys
+keep boot (67108864 bytes), checking sha1
+ok boot sha1 095a4b3fa5f4f942d4461aa5108bd233d0e3982e (67108864 bytes)
+dump system (/dev/block/mmcblk0p85, 3758096384 bytes, at 2923429888)
+ok system sha1 e5c738b89021738bdbe5ae1da7e3d52ac8895801 (3758096384 bytes)
+ok stock-recovery/install-recovery.sh sha1 3433b820089ce4899ed1b6e398b1970e1b732fa0 (718 bytes)
+ok stock-recovery/recovery-from-boot.p sha1 0b539e6f85505a8c57b266264c227171cd058b5b (12387402 bytes)
+dump: complete, out/reference/stock-violet
+# run 2026-10-31T23:47:25Z parts: vendor:86 cust:84 dtbo:60 vbmeta:11
+# serial ca1af25d
+# fingerprint Xiaomi/violet/violet:13/TQ3A.230901.001.B1/0819:userdebug/release-keys
+dump vendor (/dev/block/mmcblk0p86, 2147483648 bytes, at 0)
+ok vendor sha1 0616e68837834d04247c928d5a9c5f97045976b6 (2147483648 bytes)
+dump cust (/dev/block/mmcblk0p84, 872415232 bytes, at 0)
+ok cust sha1 9fdceb52fc6b24de09c1491d5bb30840ae20e650 (872415232 bytes)
+dump dtbo (/dev/block/mmcblk0p60, 8388608 bytes, at 0)
+ok dtbo sha1 18ca64651c1f843258b8229f261601cf40f10d63 (8388608 bytes)
+keep vbmeta (131072 bytes), checking sha1
+ok vbmeta sha1 ea1e50699a0e6e734be6cac191ac10442a497da8 (131072 bytes)
+ok stock-recovery/install-recovery.sh sha1 3433b820089ce4899ed1b6e398b1970e1b732fa0 (718 bytes)
+ok stock-recovery/recovery-from-boot.p sha1 0b539e6f85505a8c57b266264c227171cd058b5b (12387402 bytes)
+dump: complete, out/reference/stock-violet

@@ -1,0 +1,10 @@
+### kmsg
+kmsg: no homo: lines yet
+### wifi dmesg
+wifi dmesg: 6 lines: OF: reserved mem: initialized node wlan_msa_region@93900000, compatible id removed-dma-pool psci: PSCIv1.1 detected in firmware. iommu: Adding device soc:ipa_smmu_wlan to group 3 wlan_hdd_state wlan major(500) initialized firmware tas2563_uCDSP.bin: _request_firmware_load: firmware state wait timeout: rc = -110
+ SUBSYSTEM=firmware
+ DEVICE=+firmware:tas2563_uCDSP.bin tas2563 3-004c: tas2563_uCDSP.bin firmware is not loaded.
+ SUBSYSTEM=i2c
+ DEVICE=+i2c:3-004c
+### echo DBG
+DBG

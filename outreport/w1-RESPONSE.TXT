@@ -1,0 +1,478 @@
+### net
+--- interfaces ---
+sit0       down     00:00:00:00
+bond0      down     b6:ce:af:f9:b4:ff
+ip6_vti0   down     00:00:00:00:00:00:00:00:00:00:0
+bonding_masters ?        ?
+lo         down     00:00:00:00:00:00
+ip6tnl0    down     00:00:00:00:00:00:00:00:00:00:0
+ip_vti0    down     00:00:00:00
+dummy0     down     26:9b:94:41:5e:28
+
+--- wifi phys ---
+(empty) no cfg80211 phy - the driver is built into this kernel, so the radio never got its bring-up
+
+--- wlan driver state ---
+parameters
+
+--- slimbus devices ---
+sb-3
+
+--- slimbus drivers ---
+msm-dai-slim
+wcd-slim
+btfmslim-driver
+audio-slimslave
+
+--- icnss glue ---
+uevent
+bind
+unbind
+
+--- ADSP rpmsg channels ---
+(empty) (empty) the ADSP is not answering - and it is the ADSP, not the host driver, that powers this radio and loads its firmware
+
+--- ADSP consumer ---
+uevent
+bind
+unbind
+soc:qcom,msm-adsp-loader
+
+--- rfkill ---
+rfkill0    bluetooth  soft=1 hard=0
+
+--- bluetooth ---
+(empty) no hci device - the core is built in, and the WCN3990's bluetooth side needs the same ADSP before its hci daemon has anything to talk to
+
+--- loaded modules ---
+/proc/modules: No such file or directory
+so: this kernel cannot load a driver at all - a radio that is not built in is not reachable from userspace
+
+--- pending firmware requests ---
+timeout
+
+--- kernel firmware path ---
+bdwlan.bin
+regdb.bin
+wlan
+wlanmdsp.mbn
+adsp.b28
+adsp.b27
+adsp.b26
+adsp.b25
+adsp.b24
+adsp.b23
+adsp.b22
+adsp.b21
+adsp.b20
+adsp.b19
+adsp.b18
+adsp.b17
+adsp.b16
+adsp.b15
+adsp.b14
+adsp.b13
+adsp.b12
+adsp.b11
+adsp.b10
+adsp.b09
+adsp.b08
+adsp.b07
+adsp.b06
+adsp.b05
+adsp.b04
+adsp.b03
+adsp.b02
+adsp.b01
+adsp.b00
+adsp.mdt
+
+--- wlan firmware ---
+qca_cld
+
+--- vendor modules ---
+/mnt/vendor/lib/modules: No such file or directory
+so: no .ko files on the vendor partition - and this kernel cannot load any, which is harmless while the drivers are built in
+
+### ps
+     1 
+     2 [kthread] 
+     3 [kthread] 
+     4 [kthread] 
+     5 [kthread] 
+     6 [kthread] 
+     7 [kthread] 
+     8 [kthread] 
+     9 [kthread] 
+    10 [kthread] 
+    11 [kthread] 
+    12 [kthread] 
+    13 [kthread] 
+    14 [kthread] 
+    15 [kthread] 
+    16 [kthread] 
+    17 [kthread] 
+    18 [kthread] 
+    19 [kthread] 
+    20 [kthread] 
+    21 [kthread] 
+    22 [kthread] 
+    23 [kthread] 
+    24 [kthread] 
+    25 [kthread] 
+    26 [kthread] 
+    27 [kthread] 
+    28 [kthread] 
+    29 [kthread] 
+    30 [kthread] 
+    31 [kthread] 
+    32 [kthread] 
+    33 [kthread] 
+    34 [kthread] 
+    35 [kthread] 
+    36 [kthread] 
+    37 [kthread] 
+    38 [kthread] 
+    39 [kthread] 
+    40 [kthread] 
+    41 [kthread] 
+    42 [kthread] 
+    43 [kthread] 
+    44 [kthread] 
+    45 [kthread] 
+    46 [kthread] 
+    47 [kthread] 
+    48 [kthread] 
+    49 [kthread] 
+    50 [kthread] 
+    51 [kthread] 
+    52 [kthread] 
+    53 [kthread] 
+    54 [kthread] 
+    55 [kthread] 
+    56 [kthread] 
+    57 [kthread] 
+    58 [kthread] 
+    59 [kthread] 
+    60 [kthread] 
+    61 [kthread] 
+    62 [kthread] 
+    63 [kthread] 
+    64 [kthread] 
+    65 [kthread] 
+    66 [kthread] 
+    67 [kthread] 
+    68 [kthread] 
+    69 [kthread] 
+    70 [kthread] 
+    71 [kthread] 
+    72 [kthread] 
+    73 [kthread] 
+    74 [kthread] 
+    75 [kthread] 
+    76 [kthread] 
+    77 [kthread] 
+    78 [kthread] 
+    79 [kthread] 
+    80 [kthread] 
+    81 [kthread] 
+    82 [kthread] 
+    83 [kthread] 
+    84 [kthread] 
+    85 [kthread] 
+    86 [kthread] 
+    87 [kthread] 
+    88 [kthread] 
+    89 [kthread] 
+    90 [kthread] 
+    91 [kthread] 
+    92 [kthread] 
+    93 [kthread] 
+    94 [kthread] 
+    95 [kthread] 
+    96 [kthread] 
+    97 [kthread] 
+    98 [kthread] 
+    99 [kthread] 
+   100 [kthread] 
+   101 [kthread] 
+   138 [kthread] 
+   139 [kthread] 
+   145 [kthread] 
+   147 [kthread] 
+   151 [kthread] 
+   161 [kthread] 
+   185 [kthread] 
+   186 [kthread] 
+   187 [kthread] 
+   188 [kthread] 
+   189 [kthread] 
+   190 [kthread] 
+   191 [kthread] 
+   192 [kthread] 
+   193 [kthread] 
+   194 [kthread] 
+   195 [kthread] 
+   196 [kthread] 
+   197 [kthread] 
+   198 [kthread] 
+   199 [kthread] 
+   200 [kthread] 
+   202 [kthread] 
+   203 [kthread] 
+   205 [kthread] 
+   206 [kthread] 
+   207 [kthread] 
+   208 [kthread] 
+   209 [kthread] 
+   210 [kthread] 
+   211 [kthread] 
+   212 [kthread] 
+   213 [kthread] 
+   214 [kthread] 
+   215 [kthread] 
+   216 [kthread] 
+   217 [kthread] 
+   218 [kthread] 
+   219 [kthread] 
+   220 [kthread] 
+   221 [kthread] 
+   222 [kthread] 
+   223 [kthread] 
+   224 [kthread] 
+   225 [kthread] 
+   226 [kthread] 
+   227 [kthread] 
+   228 [kthread] 
+   229 [kthread] 
+   230 [kthread] 
+   231 [kthread] 
+   232 [kthread] 
+   233 [kthread] 
+   234 [kthread] 
+   235 [kthread] 
+   236 [kthread] 
+   237 [kthread] 
+   238 [kthread] 
+   239 [kthread] 
+   240 [kthread] 
+   241 [kthread] 
+   242 [kthread] 
+   243 [kthread] 
+   244 [kthread] 
+   245 [kthread] 
+   246 [kthread] 
+   247 [kthread] 
+   248 [kthread] 
+   249 [kthread] 
+   250 [kthread] 
+   251 [kthread] 
+   252 [kthread] 
+   253 [kthread] 
+   254 [kthread] 
+   255 [kthread] 
+   256 [kthread] 
+   257 [kthread] 
+   258 [kthread] 
+   259 [kthread] 
+   260 [kthread] 
+   261 [kthread] 
+   262 [kthread] 
+   263 [kthread] 
+   264 [kthread] 
+   265 [kthread] 
+   266 [kthread] 
+   267 [kthread] 
+   268 [kthread] 
+   269 [kthread] 
+   270 [kthread] 
+   271 [kthread] 
+   272 [kthread] 
+   273 [kthread] 
+   294 [kthread] 
+   295 [kthread] 
+   301 [kthread] 
+   302 [kthread] 
+   305 [kthread] 
+   306 [kthread] 
+   307 [kthread] 
+   308 [kthread] 
+   309 [kthread] 
+   310 [kthread] 
+   311 [kthread] 
+   312 [kthread] 
+   313 [kthread] 
+   314 [kthread] 
+   315 [kthread] 
+   316 [kthread] 
+   317 [kthread] 
+   318 [kthread] 
+   319 [kthread] 
+   320 [kthread] 
+   321 [kthread] 
+   322 [kthread] 
+   323 [kthread] 
+   324 [kthread] 
+   325 [kthread] 
+   326 [kthread] 
+   327 [kthread] 
+   328 [kthread] 
+   329 [kthread] 
+   330 [kthread] 
+   331 [kthread] 
+   332 [kthread] 
+   333 [kthread] 
+   334 [kthread] 
+   335 [kthread] 
+   336 [kthread] 
+   337 [kthread] 
+   338 [kthread] 
+   339 [kthread] 
+   340 [kthread] 
+   341 [kthread] 
+   342 [kthread] 
+   343 [kthread] 
+   344 [kthread] 
+   345 [kthread] 
+   346 [kthread] 
+   347 [kthread] 
+   348 [kthread] 
+   349 [kthread] 
+   350 [kthread] 
+   351 [kthread] 
+   352 [kthread] 
+   353 [kthread] 
+   354 [kthread] 
+   356 [kthread] 
+   364 [kthread] 
+   365 [kthread] 
+   366 [kthread] 
+   367 [kthread] 
+   368 [kthread] 
+   369 [kthread] 
+   370 [kthread] 
+   371 [kthread] 
+   372 [kthread] 
+   373 [kthread] 
+   374 [kthread] 
+   375 [kthread] 
+   376 [kthread] 
+   377 [kthread] 
+   378 [kthread] 
+   379 [kthread] 
+   380 [kthread] 
+   381 [kthread] 
+   382 [kthread] 
+   383 [kthread] 
+   384 [kthread] 
+   385 [kthread] 
+   386 [kthread] 
+   387 [kthread] 
+   388 [kthread] 
+   389 [kthread] 
+   390 [kthread] 
+   391 [kthread] 
+   392 [kthread] 
+   393 [kthread] 
+   394 [kthread] 
+   395 [kthread] 
+   396 [kthread] 
+   397 [kthread] 
+   398 [kthread] 
+   399 [kthread] 
+   400 [kthread] 
+   401 [kthread] 
+   402 [kthread] 
+   403 [kthread] 
+   404 [kthread] 
+   405 [kthread] 
+   406 [kthread] 
+   407 [kthread] 
+   408 [kthread] 
+   409 [kthread] 
+   416 [kthread] 
+   417 [kthread] 
+   418 [kthread] 
+   419 [kthread] 
+   420 [kthread] 
+   421 [kthread] 
+   422 [kthread] 
+   423 [kthread] 
+   424 [kthread] 
+   425 [kthread] 
+   426 [kthread] 
+   427 [kthread] 
+   428 [kthread] 
+   429 [kthread] 
+   430 [kthread] 
+   431 [kthread] 
+   432 [kthread] 
+   433 [kthread] 
+   434 [kthread] 
+   435 [kthread] 
+   436 [kthread] 
+   437 [kthread] 
+   438 [kthread] 
+   439 [kthread] 
+   440 [kthread] 
+   441 [kthread] 
+   442 [kthread] 
+   443 [kthread] 
+   444 [kthread] 
+   445 [kthread] 
+   446 [kthread] 
+   447 [kthread] 
+   448 [kthread] 
+   449 [kthread] 
+   450 [kthread] 
+   451 [kthread] 
+   452 [kthread] 
+   453 [kthread] 
+   454 [kthread] 
+   455 [kthread] 
+   456 [kthread] 
+   457 [kthread] 
+   458 [kthread] 
+   459 [kthread] 
+   460 [kthread] 
+   461 [kthread] 
+   462 [kthread] 
+   463 [kthread] 
+   464 [kthread] 
+   465 [kthread] 
+   466 [kthread] 
+   467 [kthread] 
+   468 [kthread] 
+   469 [kthread] 
+   470 [kthread] 
+   471 [kthread] 
+   472 [kthread] 
+   473 [kthread] 
+   474 [kthread] 
+   475 [kthread] 
+   476 [kthread] 
+   477 [kthread] 
+   478 [kthread] 
+   479 [kthread] 
+   481 [kthread] 
+   483 [kthread] 
+   484 
+   486 [kthread] 
+   487 [kthread] 
+   488 [kthread] 
+   490 [kthread] 
+   492 [kthread] 
+   493 [kthread] 
+   494 [kthread] 
+   495 [kthread] 
+   496 [kthread] 
+   497 [kthread] 
+   506 
+   508 
+   527 [kthread] 
+   536 [kthread] 
+   633 [kthread] 
+   666 [kthread] 
+   679 [kthread] 
+   680 [kthread] 
+   754 [kthread] 

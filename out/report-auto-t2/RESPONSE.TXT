@@ -1,0 +1,15 @@
+### wifi
+wifi: /sys/class/net: dummy0, bond0, ip6_vti0, lo, bonding_masters, ip6tnl0, ip_vti0, sit0
+wifi: wlan0 present: no
+wifi: dmesg (3 lines): OF: reserved mem: initialized node wlan_msa_region@93900000, compatible id removed-dma-pool iommu: Adding device soc:ipa_smmu_wlan to group 3 wlan_hdd_state wlan major(500) initialized
+### wifi net
+wifi net: dummy0 operstate=down addr=0e:bf:34:ea:9f:7e | bond0 operstate=down addr=92:e8:50:d7:57:f6 | ip6_vti0 operstate=down addr=00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00 | lo operstate=down addr=00:00:00:00:00:00 | bonding_masters | ip6tnl0 operstate=down addr=00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00 | ip_vti0 operstate=down addr=00:00:00:00 | sit0 operstate=down addr=00:00:00:00
+### wifi fw
+wifi fw: /vendor/firmware: absent
+wifi fw: /system/vendor/firmware: absent
+wifi fw: /etc/firmware: absent
+wifi fw: /system/etc/firmware: absent
+wifi fw: /lib/firmware: absent
+wifi fw: /usr/share/firmware: absent
+### echo T2
+T2

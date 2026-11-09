@@ -1,0 +1,10 @@
+{
+  "title": "Snake Game (ăn mồi) for VQEAF OS",
+  "description": "Game rắn săn mồi định dạng .qeapp cho VQEAF OS. Logic game là gốc viết bởi tôi (không copy game bán sẵn), render bằng C và đóng gói qua QEAPP/2 với chữ ký ECDSA P-256 RFC6979 như legacy.",
+  "style": "Pixel retro, 540x1170, dùng palette original",
+  "controls": "Chạm để đổi hướng (4 góc vô hình), hoặc dùng phím lên/xuống/trái/phải (uinput). Ăn mồi tăng điểm và tăng tốc; va tường/thân = thua.",
+  "version": "1.0.0",
+  "built": "build/mk-qeapp.py + apps/snake/snake.c",
+  "license": "MIT - VQEAF OS core; icon original; không dùng font/ảnh có sẵn",
+  "copyright": "Original code written for VQEAF OS; no copyrighted artwork copied"
+}

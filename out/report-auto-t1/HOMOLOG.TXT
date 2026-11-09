@@ -1,0 +1,333 @@
+dev: /dev/mmcblk0p77 is a block device
+prefs: language 0, orientation portrait, auto 1 (p77 slot)
+boot: QeafdropOs init on violet (PID 1)
+lun: QEAFRESCUE volume ready (65536 sectors, 33554432 bytes)
+usb: write /config/usb_gadget/homo/UDC failed: No such device
+usb: mass storage bound to a600000.dwc3 (/run/qeaf-lun.img)
+backlight: /sys/class/backlight/backlight at 85%
+drm: opened /dev/dri/card0
+drm: master of /dev/dri/card0
+drm: census[1]: 28=T16 on m1 44=T15 on m30 53=T10 off m0 
+drm: connector 28 connected, 1080x2340, encoder 27 crtc 107
+drm: mode 1080x2340 "1080x2340x60x183257"
+drm: reusing active mode 1080x2340@60
+drm: dumb buffer 1080x2340 pitch 4352, 10186752 bytes
+drm: verified - crtc 107 scans our fb 188 at 1080x2340
+drm: DIRTYFB unsupported (Function not implemented); relying on continuous scanout
+drm: scanout ready (continuous scanout)
+touch: using /dev/input/event1 (NVTCapacitiveTouchScreen)
+touch: /dev/input/event1 x[0..1079] y[0..2339] multitouch
+ui: QeafdropOs desktop created at 540x1170
+usb: cable connected
+
+--- kernel ring tail ---
+EVICE=+platform:88c000.i2c
+3,849,917200,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,850,917275,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,851,917351,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,852,917427,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,853,917503,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,854,917579,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,855,917656,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,856,917732,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,857,917808,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+6,858,917884,-;msm-cdc-pinctrl soc:cdc_dmic01_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic01_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic01_pinctrl
+6,859,917941,-;msm-cdc-pinctrl soc:cdc_dmic23_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic23_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic23_pinctrl
+6,860,917992,-;msm-cdc-pinctrl soc:rx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/rx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:rx_swr_clk_data_pinctrl
+6,861,918041,-;msm-cdc-pinctrl soc:tx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/tx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:tx_swr_clk_data_pinctrl
+6,862,918091,-;msm-cdc-pinctrl soc:msm_cdc_pinctrl@24: could not find pctldev for node /soc/lpi_pinctrl@62b40000/lpi_wcd937x_reset_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:msm_cdc_pinctrl@24
+6,863,918962,-;dwc3 a600000.dwc3: changing max_speed on rev 00000000
+ SUBSYSTEM=platform
+ DEVICE=+platform:a600000.dwc3
+3,864,919323,-;dwc3 a600000.dwc3: Error getting ipc_log_ctxt
+ SUBSYSTEM=platform
+ DEVICE=+platform:a600000.dwc3
+3,865,919327,-;dwc3 a600000.dwc3: Error getting ipc_log_ctxt for ep_events
+ SUBSYSTEM=platform
+ DEVICE=+platform:a600000.dwc3
+3,866,919580,-;register_client_adhoc:find path.src 61 dest 512
+6,867,919703,-;sps:BAM 0x000000000a704000 is registered.
+3,868,919704,-;register_client_adhoc:find path.src 61 dest 676
+3,869,919770,-;register_client_adhoc:find path.src 1 dest 583
+3,870,919845,-;register_client_adhoc:Client handle 37 usb0
+6,871,920126,-;msm-cdc-pinctrl soc:cdc_dmic01_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic01_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic01_pinctrl
+6,872,920183,-;msm-cdc-pinctrl soc:cdc_dmic23_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic23_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic23_pinctrl
+6,873,920234,-;msm-cdc-pinctrl soc:rx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/rx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:rx_swr_clk_data_pinctrl
+6,874,920282,-;msm-cdc-pinctrl soc:tx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/tx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:tx_swr_clk_data_pinctrl
+6,875,920331,-;msm-cdc-pinctrl soc:msm_cdc_pinctrl@24: could not find pctldev for node /soc/lpi_pinctrl@62b40000/lpi_wcd937x_reset_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:msm_cdc_pinctrl@24
+7,876,936699,-;tas2563 3-004c: irq_work_routine
+ SUBSYSTEM=i2c
+ DEVICE=+i2c:3-004c
+7,877,936704,-;tas2563 3-004c: irq_work_routine, device not powered
+ SUBSYSTEM=i2c
+ DEVICE=+i2c:3-004c
+4,878,943643,-;[LCT_TP_INFO] init_lct_tp_info (line 83): Initialization tp_info & tp_lockdown_info node!
+4,879,943668,-;[LCT_TP_INFO] lct_creat_proc_tp_entry (line 134): /proc/tp_info & /proc/tp_lockdown_info is okay!
+4,880,943686,-;[LCT_TP_INFO] lct_creat_sys_tp_entry (line 204): /sys/android_tp/tp_info & tp_lockdown_info is okay!
+4,881,943705,-;lct_ctp_selftest_int
+6,882,944022,-;registered taskstats version 1
+5,883,944026,-;Loading compiled-in X.509 certificates
+5,884,944118,-;Key type ._fscrypt registered
+5,885,944121,-;Key type .fscrypt registered
+5,886,944124,-;Key type fscrypt-provisioning registered
+4,887,953425,-;Error: swapper/0: fastrpc_device_init: failed to create debugfs root dir
+6,888,953864,-;ADSPRPC: Secure VMID = 22
+6,889,953865,-;ADSPRPC: Secure VMID = 37
+6,890,954049,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb1 to group 28
+6,891,954492,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb2 to group 29
+6,892,954878,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb3 to group 30
+6,893,955236,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb4 to group 31
+6,894,955586,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb5 to group 32
+6,895,955937,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb6 to group 33
+6,896,956283,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb9 to group 34
+6,897,957214,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb10 to group 35
+6,898,957591,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb11 to group 36
+6,899,957948,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb12 to group 37
+6,900,958296,-;iommu: Adding device soc:qcom,msm_fastrpc:qcom,msm_fastrpc_compute_cb13 to group 38
+3,901,959362,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,902,959448,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,903,959588,-;i2c_geni 88c000.i2c: i2c error :-107
+ SUBSYSTEM=platform
+ DEVICE=+platform:88c000.i2c
+3,904,960874,-;register_client_adhoc:find path.src 1 dest 590
+3,905,960968,-;register_client_adhoc:Client handle 38 mdss_reg
+3,906,960988,-;register_client_adhoc:find path.src 22 dest 512
+3,907,961064,-;register_client_adhoc:Client handle 39 mdss_sde
+6,908,961114,-;[drm:sde_dbg_init:5230] evtlog_status: enable:3, panic:1, dump:2
+6,909,961129,-;msm_drm ae00000.qcom,mdss_mdp: bound af20000.qcom,sde_rscc (ops 0xffffff8b3d000798)
+ SUBSYSTEM=platform
+ DEVICE=+platform:ae00000.qcom,mdss_mdp
+6,910,961135,-;msm_drm ae00000.qcom,mdss_mdp: bound soc:qcom,wb-display@0 (ops 0xffffff8b3d003460)
+ SUBSYSTEM=platform
+ DEVICE=+platform:ae00000.qcom,mdss_mdp
+6,911,961140,-;msm_drm ae00000.qcom,mdss_mdp: bound ae90000.qcom,dp_display (ops 0xffffff8b3cffe608)
+ SUBSYSTEM=platform
+ DEVICE=+platform:ae00000.qcom,mdss_mdp
+6,912,961255,-;msm-dsi-display:[dsi_display_bind] Successfully bind display panel 'dsi_nt36672a_shenchao_vid_display'
+6,913,961425,-;msm-dsi-display:[dsi_display_feature_create_sysfs] xinj:dsi_display_feature_create_sysfs success
+6,914,961435,-;msm-dsi-display:[dsi_display_whitepoint_create_sysfs] xinj:dsi_display_whitepoint_create_sysfs success
+6,915,961441,-;msm_drm ae00000.qcom,mdss_mdp: bound soc:qcom,dsi-display (ops 0xffffff8b3d0014c8)
+ SUBSYSTEM=platform
+ DEVICE=+platform:ae00000.qcom,mdss_mdp
+6,916,961460,-;[drm] mapped mdp address space @0000000006bc9ab5
+3,917,961467,-;msm_drm ae00000.qcom,mdss_mdp: failed to get memory resource: vbif_nrt_phys
+ SUBSYSTEM=platform
+ DEVICE=+platform:ae00000.qcom,mdss_mdp
+3,918,961473,-;msm_drm ae00000.qcom,mdss_mdp: failed to get memory resource: sid_phys
+ SUBSYSTEM=platform
+ DEVICE=+platform:ae00000.qcom,mdss_mdp
+6,919,961486,-;[drm:_sde_kms_get_splash_data:3311] splash mem num_regions:1
+6,920,961494,-;[drm:_sde_kms_get_splash_data:3346] splash mem for disp:1 add:9c000000 size:f00000
+6,921,961858,-;[drm:sde_kms_hw_init:3492] sde hardware revision:0x50030000
+6,922,962339,-;[drm] Created domain mdp_ns [80000000,80000000] secure=0
+6,923,963059,-;iommu: Adding device ae00000.qcom,mdss_mdp:qcom,smmu_sde_sec_cb to group 39
+6,924,963088,-;[drm] probing device qcom,smmu_sde_sec
+6,925,963095,-;[drm] Created domain mdp_s [80000000,80000000] secure=1
+4,926,964585,-;msm-dp-display ae90000.qcom,dp_display: ae90000.qcom,dp_display supply refgen not found, using dummy regulator
+ SUBSYSTEM=platform
+ DEVICE=+platform:ae90000.qcom,dp_display
+3,927,964706,-;i2c i2c-4: of_i2c: modalias failure on /soc/qcom,dp_display@0/qcom,ctrl-supply-entries
+ SUBSYSTEM=i2c
+ DEVICE=+i2c:i2c-4
+4,928,964711,-;i2c i2c-4: Failed to create I2C device for /soc/qcom,dp_display@0/qcom,ctrl-supply-entries
+ SUBSYSTEM=i2c
+ DEVICE=+i2c:i2c-4
+3,929,964715,-;i2c i2c-4: of_i2c: modalias failure on /soc/qcom,dp_display@0/qcom,core-supply-entries
+ SUBSYSTEM=i2c
+ DEVICE=+i2c:i2c-4
+4,930,964719,-;i2c i2c-4: Failed to create I2C device for /soc/qcom,dp_display@0/qcom,core-supply-entries
+ SUBSYSTEM=i2c
+ DEVICE=+i2c:i2c-4
+3,931,964723,-;i2c i2c-4: of_i2c: modalias failure on /soc/qcom,dp_display@0/qcom,phy-supply-entries
+ SUBSYSTEM=i2c
+ DEVICE=+i2c:i2c-4
+4,932,964727,-;i2c i2c-4: Failed to create I2C device for /soc/qcom,dp_display@0/qcom,phy-supply-entries
+ SUBSYSTEM=i2c
+ DEVICE=+i2c:i2c-4
+3,933,964899,-;[drm-dp] dp_debug_init: Not creating debug root dir
+6,934,964919,-;[drm-dp-mst]: dp_mst_drm_bridge_init: mst not initialized. cache encoder information
+6,935,964924,-;[drm-dp-mst]: dp_mst_drm_bridge_init: mst not initialized. cache encoder information
+3,936,964938,-;[drm:reg_dmav1_init_sspp_op_v4] *ERROR* invalid feature map 12 for feature 31
+3,937,965074,-;[drm:reg_dmav1_init_sspp_op_v4] *ERROR* invalid feature map 12 for feature 31
+6,938,966419,-;[drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+6,939,966425,-;[drm] No driver support for vblank timestamp query.
+6,940,966567,-;[drm] Initialized msm_drm 1.2.0 20130625 for ae00000.qcom,mdss_mdp on minor 0
+6,941,966605,-;msm-dsi-panel:[dsi_panel_parse_topology:2860] default topology: lm: 1 comp_enc:0 intf: 1
+6,942,966672,-;msm-dsi-panel:[dsi_panel_parse_partial_update_caps:2950] partial update disabled as the property is not set
+6,943,966756,-;dsi-ctrl:[_dsi_ctrl_setup_isr] [DSI_0] IRQ 444 registered
+3,944,973630,-;Unable to find log_buf by kallsyms!
+6,945,980624,-;sde_mdp_parse_dt_prop_len: <SDEROT_INFO> prop qcom,mdss-inline-rot-qos-lut : doesn't exist in device tree
+6,946,980632,-;sde_mdp_parse_dt_prop_len: <SDEROT_INFO> prop qcom,mdss-inline-rot-danger-lut : doesn't exist in device tree
+6,947,980637,-;sde_mdp_parse_dt_prop_len: <SDEROT_INFO> prop qcom,mdss-inline-rot-safe-lut : doesn't exist in device tree
+3,948,980664,-;register_client_adhoc:find path.src 1 dest 590
+3,949,980756,-;register_client_adhoc:Client handle 40 sde_reg
+6,950,980858,-;iommu: Adding device ae00000.qcom,mdss_rotator:qcom,smmu_rot_unsec_cb to group 40
+6,951,980899,-;sde_smmu_probe: <SDEROT_INFO> iommu v2 domain[0] mapping and clk register successful!
+6,952,980974,-;iommu: Adding device ae00000.qcom,mdss_rotator:qcom,smmu_rot_sec_cb to group 41
+6,953,980994,-;sde_smmu_probe: <SDEROT_INFO> iommu v2 domain[1] mapping and clk register successful!
+3,954,981042,-;register_client_adhoc:find path.src 25 dest 512
+3,955,981132,-;register_client_adhoc:Client handle 41 mdss_rotator
+3,956,981139,-;register_client_adhoc:find path.src 1 dest 590
+3,957,981216,-;register_client_adhoc:Client handle 42 mdss_rot_reg
+3,958,981421,-;No change in context(0==0), skip
+6,959,982418,-;sde_rotator ae00000.qcom,mdss_rotator: <SDEROT_INFO> SDE v4l2 rotator probe success
+ SUBSYSTEM=platform
+ DEVICE=+platform:ae00000.qcom,mdss_rotator
+6,960,982553,-;msm-cdc-pinctrl soc:cdc_dmic01_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic01_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic01_pinctrl
+6,961,982628,-;msm-cdc-pinctrl soc:cdc_dmic23_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic23_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic23_pinctrl
+6,962,982680,-;msm-cdc-pinctrl soc:rx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/rx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:rx_swr_clk_data_pinctrl
+6,963,982730,-;msm-cdc-pinctrl soc:tx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/tx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:tx_swr_clk_data_pinctrl
+6,964,982779,-;msm-cdc-pinctrl soc:msm_cdc_pinctrl@24: could not find pctldev for node /soc/lpi_pinctrl@62b40000/lpi_wcd937x_reset_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:msm_cdc_pinctrl@24
+3,965,983002,-;ngd_msm_ctrl 62e40000.slim: error creating ipc_logging context
+ SUBSYSTEM=platform
+ DEVICE=+platform:62e40000.slim
+3,966,983007,-;ngd_msm_ctrl 62e40000.slim: error creating ipc_error_logging context
+ SUBSYSTEM=platform
+ DEVICE=+platform:62e40000.slim
+6,967,983121,-;iommu: Adding device 62e40000.slim:qcom,iommu_slim_ctrl_cb to group 42
+6,968,983298,-;msm-cdc-pinctrl soc:cdc_dmic01_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic01_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic01_pinctrl
+6,969,983373,-;msm-cdc-pinctrl soc:cdc_dmic23_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic23_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic23_pinctrl
+6,970,983425,-;msm-cdc-pinctrl soc:rx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/rx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:rx_swr_clk_data_pinctrl
+6,971,983480,-;msm-cdc-pinctrl soc:tx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/tx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:tx_swr_clk_data_pinctrl
+6,972,983590,-;msm-cdc-pinctrl soc:msm_cdc_pinctrl@24: could not find pctldev for node /soc/lpi_pinctrl@62b40000/lpi_wcd937x_reset_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:msm_cdc_pinctrl@24
+6,973,983872,-;msm-cdc-pinctrl soc:cdc_dmic01_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic01_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic01_pinctrl
+6,974,983970,-;msm-cdc-pinctrl soc:cdc_dmic23_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic23_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic23_pinctrl
+6,975,984063,-;msm-cdc-pinctrl soc:rx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/rx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:rx_swr_clk_data_pinctrl
+6,976,984392,-;input: gpio-keys as /devices/platform/soc/soc:gpio_keys/input/input2
+6,977,984582,-;qcom,qpnp-rtc c440000.qcom,spmi:qcom,pm6150@0:qcom,pm6150_rtc: setting system clock to 1970-01-11 14:55:34 UTC (917734)
+ SUBSYSTEM=platform
+ DEVICE=+platform:c440000.qcom,spmi:qcom,pm6150@0:qcom,pm6150_rtc
+3,978,984994,-;lpm_levels: register_cluster_lpm_stats()
+3,979,985024,-;lpm_levels: register_cluster_lpm_stats()
+6,980,985244,-;msm-cdc-pinctrl soc:tx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/tx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:tx_swr_clk_data_pinctrl
+6,981,985316,-;msm-cdc-pinctrl soc:msm_cdc_pinctrl@24: could not find pctldev for node /soc/lpi_pinctrl@62b40000/lpi_wcd937x_reset_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:msm_cdc_pinctrl@24
+6,982,985489,-;msm-cdc-pinctrl soc:cdc_dmic01_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic01_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic01_pinctrl
+6,983,985542,-;msm-cdc-pinctrl soc:cdc_dmic23_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic23_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic23_pinctrl
+6,984,985594,-;msm-cdc-pinctrl soc:rx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/rx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:rx_swr_clk_data_pinctrl
+6,985,987092,-;msm-cdc-pinctrl soc:tx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/tx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:tx_swr_clk_data_pinctrl
+6,986,987251,-;msm-cdc-pinctrl soc:msm_cdc_pinctrl@24: could not find pctldev for node /soc/lpi_pinctrl@62b40000/lpi_wcd937x_reset_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:msm_cdc_pinctrl@24
+6,987,987672,-;msm-cdc-pinctrl soc:cdc_dmic01_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic01_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic01_pinctrl
+6,988,987814,-;msm-cdc-pinctrl soc:cdc_dmic23_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/dmic23_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:cdc_dmic23_pinctrl
+6,989,987953,-;msm-cdc-pinctrl soc:rx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/rx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:rx_swr_clk_data_pinctrl
+6,990,991111,-;rmnet_ipa3 started initialization
+6,991,991725,-;RNDIS_IPA module is loaded.
+6,992,992002,-;msm-cdc-pinctrl soc:tx_swr_clk_data_pinctrl: could not find pctldev for node /soc/lpi_pinctrl@62b40000/tx_swr_clk_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:tx_swr_clk_data_pinctrl
+6,993,992235,-;msm-cdc-pinctrl soc:msm_cdc_pinctrl@24: could not find pctldev for node /soc/lpi_pinctrl@62b40000/lpi_wcd937x_reset_active, deferring probe
+ SUBSYSTEM=platform
+ DEVICE=+platform:soc:msm_cdc_pinctrl@24
+3,994,993502,-;msm_bus_late_init: Remove handoff bw requests
+6,995,994332,-;ufs_phy_gdsc: disabling
+6,996,994349,-;hlos1_vote_aggre_noc_mmu_audio_tbu_gdsc: disabling
+6,997,994458,-;hlos1_vote_aggre_noc_mmu_tbu1_gdsc: disabling
+6,998,994566,-;hlos1_vote_aggre_noc_mmu_tbu2_gdsc: disabling
+6,999,994674,-;hlos1_vote_aggre_noc_mmu_pcie_tbu_gdsc: disabling
+6,1000,994796,-;dbu1: disabling
+6,1001,994802,-;camera_ldo: disabling
+6,1002,994805,-;camera_vana0_ldo: disabling
+6,1003,994808,-;camera_vana1_2_ldo: disabling
+6,1004,994833,-;regulator_proxy_consumer_remove_all: removing regulator proxy consumer requests
+6,1005,994857,-;ALSA device list:
+6,1006,994860,-;  No soundcards found.
+6,1007,995346,-;Freeing unused kernel memory: 2048K
+6,1008,999203,-;Mass Storage Function, version: 2009/09/11
+6,1009,999213,-;LUN: removable file: (no medium)
+6,1010,999494,-;android_work: did not send uevent (0 0 00000000b122142a)
+4,1011,1018482,-;hml [info] fpc_fb_notif_callback value = 1
+6,1012,2311479,-;msm-dwc3 a600000.ssusb: DWC3 exited from low power mode
+ SUBSYSTEM=platform
+ DEVICE=+platform:a600000.ssusb
+6,1013,2522083,-;android_work: sent uevent USB_STATE=CONNECTED
+6,1014,2623765,-;configfs-gadget gadget: high-speed config #1: c
+6,1015,2623831,-;android_work: sent uevent USB_STATE=CONFIGURED
+6,1016,3040936,-;of_batterydata_get_best_profile: 3951184_LC_M6300_ATL4000mAh_FG_averaged_MasterSlave_Apr3th2019 found
+3,1017,3040951,-;QCOM-STEPCHG: read_range_data_from_node: Count qcom,step-chg-ranges failed, rc=-22

@@ -1,0 +1,100 @@
+== storage: the QEAFRESCUE volume's folder structure ==
+ok    the volume initialises at 32 MiB
+ok    all storage folders are published
+ok    the boot sector carries the 0x55AA signature
+ok    512-byte sectors, 4 KiB clusters
+ok    two FATs and a 512-entry root, as the BPB claims
+ok    the sector count is the size
+ok    the type string says FAT16
+ok    the BPB label is QEAFRESCUE
+      geometry: FAT at 32, root at 544, data at 576
+ok    FAT[0] is the media descriptor in both FATs
+ok    FAT[1] is an end-of-chain marker, not a reserved value
+      root directory, 4 entr(y/ies) read back from raw sectors:
+        QEAFRESCUE  attr 0x08  cluster 0  short 'QEAFRESCUE'  8.3 only
+        VQEAF       attr 0x10  cluster 2  short 'VQEAF'  long name
+        UserData    attr 0x10  cluster 3  short 'USERDATA'  long name
+        Install     attr 0x10  cluster 4  short 'INSTALL'  long name
+ok    the root holds the label plus storage folders
+ok    all of them are directories
+ok    every folder's cluster is allocated and ends its chain in both FATs
+ok    every folder opens with '.' pointing at itself and '..' at the root
+      VQEAF      -> long name, exact case
+ok    the folder reads back exactly as the storage table spells it
+      UserData   -> long name, exact case
+ok    the folder reads back exactly as the storage table spells it
+      Install    -> long name, exact case
+ok    the folder reads back exactly as the storage table spells it
+ok    the table maps a name back to its kind
+ok    and refuses what it does not know
+ok    the folders also carry distinct short names
+ok    the root spent exactly label + (long, short) per folder
+ok    one volume label entry, first in the root
+ok    wrote the first MiB (boot, both FATs, root, folder clusters) for the Python parser
+ok    re-init the same RAM
+ok    a bare volume reads back as label only - the walk sees nothing extra
+ok    and zero directories before storage_publish
+ok    rebuilt with the folders
+ok    a zeroed root yields no entries at all - the count observes
+ok    a clean volume for the rejects
+ok    an empty name is rejected
+ok    a slash is rejected
+ok    a name past the table's reach is rejected
+ok    and none of them took a root entry
+ok    published again
+ok    a near-collision name is accepted
+      short names: UserData -> 'USERDATA', Documentz -> 'DOCUME~1'
+ok    the two stems get different short names - no aliasing
+ok    and they are what a host would generate itself
+
+== sync file: DEVINFO.TXT on the real FAT16 builder ==
+ok    a small root file is published
+ok    the boot sector still parses after a file
+ok    exactly one real root entry was added
+ok    one long-name record plus its 8.3 entry, nothing more
+ok    the 8.3 name is exact and a long-name record is written
+ok    a FAT-spec walk reads the exact bytes back
+ok    the same file can be republished when USB mode changes
+ok    the rewrite did NOT create a DEVINF~1.TXT duplicate
+ok    the rewritten bytes are what a host now reads
+
+46 checks, 0 failed
+== rescue volume: independent read of out/qeafrescue_meta.img (1048576 bytes) ==
+ok    boot sector signature
+ok    512 bytes per sector
+ok    8 sectors per cluster (4 KiB)
+ok    two FAT copies
+ok    a 512-entry root directory
+ok    the BPB sizes the volume at 32 MiB
+ok    the type string is FAT16
+ok    the BPB label is QEAFRESCUE
+      layout: FAT 32, root 544, data 576
+ok    FAT[0] media descriptor, mirrored in both FATs
+ok    FAT[1] end-of-chain, mirrored in both FATs
+      root[0] QEAFRESCUE  attr 0x08 cluster 0    (8.3 only)
+      root[2] VQEAF       attr 0x10 cluster 2    (long name + VQEAF)
+      root[4] UserData    attr 0x10 cluster 3    (long name + USERDATA)
+      root[6] Install     attr 0x10 cluster 4    (long name + INSTALL)
+ok    one volume label entry, first in the root
+ok    the label reads back as QEAFRESCUE
+ok    folder 'VQEAF' is present under its exact name
+ok    folder 'UserData' is present under its exact name
+ok    folder 'Install' is present under its exact name
+ok    and there are exactly 3 folders
+ok    every folder carries a long name, not just an 8.3 guess
+ok    the short names are all distinct
+ok    'VQEAF' cluster 2 is allocated and closed in both FATs
+ok    'VQEAF' opens with '.' (itself) and '..' (the root)
+ok    'UserData' cluster 3 is allocated and closed in both FATs
+ok    'UserData' opens with '.' (itself) and '..' (the root)
+ok    'Install' cluster 4 is allocated and closed in both FATs
+ok    'Install' opens with '.' (itself) and '..' (the root)
+ok    the control found a long-name record to corrupt
+ok    exactly one folder loses its long name - the decoder reads the checksum
+ok    and it is the folder whose record was tampered with
+ok    the folder itself is still there, only its name falls back to 8.3
+ok    the remaining 2 keep their long names
+ok    the same walk over a zeroed root finds no entries at all
+ok    and no folders
+
+31 checks, 0 failed

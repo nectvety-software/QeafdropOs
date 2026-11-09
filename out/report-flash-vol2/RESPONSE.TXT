@@ -1,0 +1,2 @@
+### flash recovery BOOTIMG.BIN confirm
+flash: written and verified byte for byte

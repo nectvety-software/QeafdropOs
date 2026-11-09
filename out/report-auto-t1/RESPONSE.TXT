@@ -1,0 +1,34 @@
+### status
+QeafdropOs 0.1.0; device violet; usb_mode=charge; usb_cable=1; orientation=portrait; auto_rotate=1; control_lun=QEAFRESCUE
+### ls
+HELP.TXT SUMMARY.TXT RESPONSE.TXT QEAFBOOT.LOG DEVINFO.TXT QEAF.CMD BOOTIMG.BIN SCREEN.RAW VQEAF UserData Install Themes
+### help
+QEAFRESCUE command channel (VQEAF-SYNC/1)
+=========================================
+Write one or more verbs per line into QEAF.CMD, flush the volume (do
+not eject), then read RESPONSE.TXT by RAW SECTOR - the mounted Windows
+view is stale. Every batch should end with 'echo <nonce>' so the host
+can tell a fresh answer from the previous one.
+
+  help                 show this text
+  status               OS, USB mode, cable, LUN sectors
+  wifi                 /sys/class/net + kmsg wlan lines (driver probe)
+  sync                 republish DEVINFO.TXT
+  usb charge|mtp|ptp   choose the USB data mode
+  rotate 0|90|180|270|auto   screen orientation / auto-rotate
+  lang vi|en|zh        switch the UI language and persist it
+  echo TEXT            echoed back verbatim (nonce)
+  ls                   root entries of this volume
+  kmsg                 tail of the homo: kernel-log lines (boot trace)
+  snap                 dump the live scanout to SCREEN.RAW (RGB565)
+  reboot system|recovery|bootloader
+                       restart the phone; recovery boots p77
+  flash recovery BOOTIMG.BIN confirm
+                       write the staged image to p77, read it back
+                       and compare byte for byte before answering
+
+Only 'recovery' (p77) is writable. p76/boot, userdata and misc are
+never touched. The word 'confirm' is mandatory. HELP.TXT, SUMMARY.TXT,
+RESPONSE.TXT, QEAFBOOT.LOG and DEVINFO.TXT are the channel's own files.
+### echo T1
+T1

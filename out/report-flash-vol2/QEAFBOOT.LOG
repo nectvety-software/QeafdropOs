@@ -1,0 +1,6 @@
+[    0.000] N qeaf: QeafdropOs 0.1.0 starting (pid 1)
+[    0.010] N qeaf: rescue channel bound to the RAM LUN
+[    -    ] N qeaf: snap wrote SCREEN.RAW
+[    -    ] N qeaf: wifi dmesg probe answered
+[    -    ] N qeaf: lun: running flash recovery BOOTIMG.BIN confirm
+[    -    ] N qeaf: lun: verified - recovery and BOOTIMG.BIN agree byte for byte over 28631040 bytes

@@ -1,0 +1,27 @@
+{
+  "name": "Vn",
+  "african": false,
+  "attribution": "VQEAF OS universal — Snake game. Code viết gốc theo format QEAPP/2 của VQEAF OS; legacy pixel_snake (ESP32) chỉ là tham khảo cấu hình snake.cfg, không copy code C++/asset.",
+  "style": "Pixel retro 540x1170, palette original (forest/amber/cyan), original icon",
+  "controls": "Chạm để đổi hướng (4 góc vô hình), hoặc dùng phím lên/xuống/trái/phải (uinput). Ăn mồi tăng điểm và tăng tốc; va tường/thân = thua.",
+  "version": "1.0.0",
+  "built": "build/mk-qeapp.py + apps/snake/snake.c",
+  "terms": {
+    "points": "điểm",
+    "food": "mồi",
+    "game_over": "kết thúc game",
+    "press_to_start": "Chạm để bắt đầu"
+  },
+  "theme": {
+    "name": "Forest",
+    "palette": {
+      "bg": [10, 46, 26],
+      "snake": [34, 255, 153],
+      "food": [224, 51, 51],
+      "grid": [17, 51, 34]
+    },
+    "background": "original canvas, không dùng wallpaper có sẵn",
+    "size": "540x1170",
+    "font": "system 12px, không embed font lạ"
+  }
+}

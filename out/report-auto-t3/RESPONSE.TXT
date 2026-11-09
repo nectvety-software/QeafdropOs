@@ -1,0 +1,10 @@
+### rotate 90
+rotate: orientation -> landscape
+### rotate 0
+rotate: orientation -> portrait
+### lang vi
+lang: applied vi
+### lang en
+lang: applied en
+### echo T3
+T3

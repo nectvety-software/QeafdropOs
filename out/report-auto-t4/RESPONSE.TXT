@@ -1,0 +1,8 @@
+### usb charge
+usb: mode set
+### snap
+snap: wrote SCREEN.RAW (249600 bytes, RGB565 240x520)
+### kmsg
+kmsg: no homo: lines yet
+### echo T4
+T4

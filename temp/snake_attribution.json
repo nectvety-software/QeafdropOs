@@ -1,0 +1,10 @@
+{
+  "sdk_usage": true,
+  "attribution": "VQEAF OS universal — Snake game. Code viết gốc theo format QEAPP/2 của VQEAF OS; legacy pixel_snake (ESP32) chỉ là tham khảo cấu hình snake.cfg, không copy code C++/asset.",
+  "style": "Pixel retro 540x1170, palette original (forest/amber/cyan), original icon",
+  "controls": "Chạm để đổi hướng (4 góc vô hình), hoặc dùng phím lên/xuống/trái/phải (uinput). Ăn mồi tăng điểm và tăng tốc; va tường/thân = thua.",
+  "version": "1.0.0",
+  "built": "build/mk-qeapp.py + apps/snake/snake.c",
+  "license": "MIT - VQEAF OS core; icon original; không dùng font/ảnh có sẵn",
+  "copyright": "Original code written for VQEAF OS; no copyrighted artwork copied"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "com.qeaf.recovery",
+  "name": "Recovery",
+  "version": "1.0.0",
+  "entry": "src/recovery.c",
+  "min_os": "540x1170",
+  "kind": "app"
+}

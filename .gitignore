@@ -1,0 +1,34 @@
+# system
+.DS_Store
+Thumbs.db
+
+# build
+homo/build/
+out/toolchain/
+out/zig-global/
+out/*.img
+out/*.elf
+out/*.exe
+out/*.o
+out/*.pdb
+out/*.log
+out/*.png
+out/*.raw
+out/*.cpio
+out/*.cpio.gz
+out/*.deb
+out/*.bin
+!out/apps/*.qeapp
+!out/new-apps/
+!out/reference/stock-violet/boot.img
+
+# large vendor images (keep reference boot only)
+out/reference/stock-violet/*.img
+out/reference/*.img
+
+# backups / junk (cleaned 2026-11)
+*.bak
+*.bak-real/
+*.pem
+!out/key_qeapp_test.pem
+!out/key_qeapp_test.pub.pem

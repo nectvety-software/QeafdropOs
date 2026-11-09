@@ -1,0 +1,13 @@
+### wifi
+wifi: /sys/class/net: ip6_vti0, lo, bond0, ip6tnl0, ip_vti0, sit0, dummy0, bonding_masters
+wifi: wlan0 present: no
+wifi: dmesg (3 lines): OF: reserved mem: initialized node wlan_msa_region@93900000, compatible id removed-dma-pool iommu: Adding device soc:ipa_smmu_wlan to group 3 wlan_hdd_state wlan major(500) initialized
+### wifi fw
+wifi fw: /vendor/firmware: absent
+wifi fw: /system/vendor/firmware: absent
+wifi fw: /etc/firmware: absent
+wifi fw: /system/etc/firmware: absent
+wifi fw: /lib/firmware: wlan (1 wlan-related)
+wifi fw: /usr/share/firmware: absent
+### echo WIFICORE
+WIFICORE

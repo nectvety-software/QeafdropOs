@@ -1,0 +1,59 @@
+[    0.876] W qeaf: canary: pid 480 reboots the phone 180 s after this point unless init reaches its event loop
+[    0.876] W qeaf: deadline: init reboots the phone in 180 s unless it reaches its event loop
+[    0.876] N qeaf: VQEAF OS 0.1.0 starting (pid 1)
+[    0.876] N qeaf: hal: display=panel (fbdev or drm/kms) power=power_supply + /sys/power
+[    0.878] I qeaf: optional mount /sys/kernel/security skipped: I/O error
+[    0.878] W qeaf: autosleep disable refused, using explicit suspend
+[    0.878] N qeaf: suspend ready: idle 20s, state mem, explicit state writes
+[    0.878] N qeaf: memory: trim below 262144 KiB, kill below 131072 KiB, page 4 KiB
+[    0.879] N qeaf: led: stage channel is /sys/class/leds/green
+[    0.879] N qeaf: led: stage 2 = 2 flashes in five seconds
+[    0.879] N qeaf: lun: volume built - clusters 2..42 are ours, 43..8177 belong to the host
+[    0.880] N qeaf: lun: lun.0/file reads back '/run/qeaf-lun.img
+'
+[    0.880] N qeaf: lun: binding UDC a600000.dwc3
+[    0.980] N qeaf: lun: the phone is a 32 MiB rescue disk, label QEAFRESCUE
+[    0.980] N qeaf: lun: holding /run/qeaf/wakelocks/rescue-lun - the rescue channel stays up while the screen sleeps
+[    0.980] N qeaf: led: stage 3 = 3 flashes in five seconds
+[    0.980] N qeaf: panel: made /dev/fb0 (29:0) before the device queue settled
+[    0.980] N qeaf: drm panel: draw server started as pid 484, it holds the card for the rest of the boot
+[    0.980] I qeaf: ueventd: 35 device rules
+[    0.980] N qeaf: drm panel: made /dev/dri/card0 (226:0)
+[    0.980] N qeaf: drm panel: master of /dev/dri/card0, modesetting ioctls are ours
+[    0.980] N qeaf: drm panel: connector 28 type 16, encoder 27, crtc 0, fb 0, mode 0x0, score 12
+[    0.981] N qeaf: drm panel: connector 44 type 15, encoder 0, crtc 0, fb 0, mode 0x0, score 4
+[    0.981] N qeaf: drm panel: chosen connector 28 type 16 encoder 27 crtc 0, fb 0, score 12
+[    0.981] N qeaf: drm panel: idle panel, path chosen - connector 28, encoder 27 type 6, crtc 107 of 3
+[    0.981] N qeaf: drm panel: connector 28 mode 0 is 1080x2340 at 60 Hz (of 1 modes)
+[    0.999] N qeaf: drm panel: verified - crtc 107 reports fb 153 as its scanout
+[    0.999] N qeaf: drm panel: committed - crtc 107 scans our 1080x2340 buffer, pitch 4352, handle 1, fb 153
+[    0.999] N qeaf: drm panel: second buffer 1080x2340 handle 2 fb 30 - a repaint is painted off-screen and flipped in, never cleared on the buffer the panel reads
+[    0.999] N qeaf: drm panel: our own scanout, 1080x2340 stride 4352, scale 2
+[    1.071] N qeaf: drm panel: flip verified - crtc 107 scans fb 30 and the next frame is painted into fb 153
+[    1.182] N qeaf: coldplug: 346 devices read from sysfs, 87 with a partition name, 337 nodes made, 87 by-name links
+[    1.665] N qeaf: led: stage 4 = 4 flashes in five seconds
+[    1.766] N qeaf: misc: boot command cleared
+[    1.766] N qeaf: led: stage 5 = 5 flashes in five seconds
+[    1.767] I qeaf: fstab: 4 entries
+[    1.770] I qeaf: mounted /dev/disk/by-name/cache on /cache (ext4)
+[    1.772] I qeaf: mounted /dev/disk/by-name/vendor on /mnt/vendor (ext4)
+[    1.780] I qeaf: mounted /dev/disk/by-name/modem on /mnt/modem (vfat)
+[    1.784] I qeaf: mounted /dev/disk/by-name/persist on /mnt/persist (ext4)
+[    1.867] N qeaf: mount: /dev/disk/by-name/cache is mounted on /cache
+[    1.867] N qeaf: mount: /dev/disk/by-name/vendor is mounted on /mnt/vendor
+[    1.867] N qeaf: mount: /dev/disk/by-name/modem is mounted on /mnt/modem
+[    1.867] N qeaf: mount: /dev/disk/by-name/persist is mounted on /mnt/persist
+[    1.871] N qeaf: persist: log file open at /cache/qeaf-boot.log (write-through)
+[    1.872] N qeaf: led: stage 6 = 6 flashes in five seconds
+[    1.875] I qeaf: units: 6 loaded from /etc/qeaf/init.d
+[    1.876] N qeaf: started storage pid 498 (/bin/sh /bin/qeaf-storage)
+[    1.878] N qeaf: started wifi pid 501 (/bin/sh /bin/qeaf-wifi)
+[    1.879] N qeaf: started keys pid 506 (/sbin/qeafkeyd)
+[    1.882] N qeaf: started panel pid 508 (/bin/getty -L tty0 38400 linux)
+[    1.884] N qeaf: led: stage 7 = 7 flashes in five seconds
+[    2.059] I qeaf: /usr/share/qeaf/apps: 3 gói .qeapp, 2 mở được
+[    2.086] N qeaf: unit storage finished cleanly
+[    2.089] N qeaf: pin: đang sạc - 30%
+[   24.260] N qeaf: unit wifi finished cleanly
+[   32.215] N qeaf: lock: 30s without a key
+[  221.190] N qeaf: lun: running 9 bytes of commands from the volume

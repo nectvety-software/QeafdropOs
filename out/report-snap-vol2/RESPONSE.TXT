@@ -1,0 +1,4 @@
+### snap
+snap: wrote SCREEN.RAW (249600 bytes, RGB565 240x520)
+### echo SNAP_VOL2
+SNAP_VOL2

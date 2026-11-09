@@ -1,0 +1,8 @@
+{
+  "id": "com.qeaf.fastboot",
+  "name": "Fastboot",
+  "version": "1.0.0",
+  "entry": "src/fastboot.c",
+  "min_os": "540x1170",
+  "kind": "app"
+}

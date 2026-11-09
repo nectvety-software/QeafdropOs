@@ -1,0 +1,74 @@
+VQEAF OS 0.1.0 - rescue volume
+
+This disk is the way in. It is built in RAM: no partition on
+the phone has to survive for these bytes to exist, and nothing
+on the phone can take them back.
+
+Read it with build/read-report-raw.ps1 (raw sectors, no mount
+needed). Write to it by copying files onto the mounted volume
+and then FLUSHING it (build/send-cmd.ps1 calls the volume
+flush for you): Windows writes the directory entry when it
+flushes the FAT, so a copy that has finished in Explorer is
+not yet visible to the phone.
+Do not eject to flush. Measured on this PC 2026-10-26: an
+eject takes the medium away (the disk stays on the bus as
+"No Media") and nothing the host can do unelevated brings it
+back - only re-plugging the cable, or a reboot of the phone.
+
+--- commands (QEAF.CMD, one per line)
+  help  status  net  dmesg  ps  ls PATH  cat PATH  mountall
+  coldplug  start NAME  stop NAME  mkdir PATH  rm PATH
+  sync  screen  reboot  poweroff  recovery  bootloader
+  flash recovery FILE confirm     (see HELP.TXT)
+Each answer is preceded by '### ' and the line it answers,
+so a response of several commands can be read back on a PC.
+
+--- mounts
+mounts:
+  /cache         ext4   ok      
+  /mnt/vendor    ext4   ok      
+  /mnt/modem     vfat   ok      
+  /mnt/persist   ext4   ok      
+
+/proc/self/mounts (the kernel's own list):
+rootfs / rootfs rw 0 0
+proc /proc proc rw,nosuid,nodev,noexec,noatime 0 0
+sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0
+tmpfs /dev tmpfs rw,nosuid,noexec,relatime,size=2862852k,nr_inodes=715713,mode=755 0 0
+tmpfs /run tmpfs rw,nosuid,nodev,size=458060k,nr_inodes=715713,mode=755 0 0
+tmpfs /tmp tmpfs rw,nosuid,nodev,relatime,size=916116k,nr_inodes=715713 0 0
+tmpfs /dev/shm tmpfs rw,nosuid,nodev,noexec,relatime,size=1431428k,nr_inodes=715713 0 0
+pstore /sys/fs/pstore pstore rw,nosuid,nodev,noexec,relatime 0 0
+configfs /config configfs rw,relatime 0 0
+cgroup2 /sys/fs/cgroup cgroup2 rw,nosuid,nodev,noexec,relatime 0 0
+/dev/disk/by-name/cache /cache ext4 rw,nosuid,nodev,noexec,noatime,data=ordered 0 0
+/dev/disk/by-name/vendor /mnt/vendor ext4 ro,nosuid,nodev,noexec,relatime 0 0
+/dev/disk/by-name/modem /mnt/modem vfat ro,nosuid,nodev,noexec,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro 0 0
+/dev/disk/by-name/persist /mnt/persist ext4 rw,nosuid,nodev,noexec,noatime,data=ordered 0 0
+
+
+/dev/disk/by-name: 87 links, cache=1
+
+--- devices
+uevent: add=0 change=54 remove=7 mknod=0 links=0 byname=87 rules=35
+
+--- services
+UNIT           STATE     PID     FAILS  CMD
+serial         backoff   -1      0      /bin/getty -L ttyMSM0 115200 vt102
+storage        done      -1      0      /bin/sh /bin/qeaf-storage
+wifi           done      -1      0      /bin/sh /bin/qeaf-wifi
+keys           running   506     0      /sbin/qeafkeyd
+panel          running   508     0      /bin/getty -L tty0 38400 linux
+report         waiting   -1      0      /bin/sh /bin/qeaf-report
+
+--- memory
+memory: 5516652 KiB available, psi some -1 tenths, level 0
+        thresholds 262144/131072 KiB, keep-free 32768 KiB, victim (none)
+        actions: trim=0 compact=0 cachedropped=0 killed=0
+
+--- rescue
+bound=1 volume=/run/qeaf-lun.img host_has_written=yes commands=2
+
+--- cmdline
+rcupdate.rcu_expedited=1 rcupdate.rcu_normal_after_boot=1 nosoftlockup mce=ignore_ce noirqdebug rcu_nocbs=0-7 kpti=off androidboot.hardware=qcom androidboot.console=ttyMSM0 service_locator.enable=1 swiotlb=1 earlycon=msm_geni_serial,0x880000 loop.max_part=7 kpti=off androidboot.vbmeta.avb_version=1.0 buildvariant=userdebug androidboot.verifiedbootstate=orange androidboot.keymaster=1 root=PARTUUID=c1f0ccaf-b3ed-e568-3bc7-b1911709a3f7 androidboot.bootdevice=7c4000.sdhci androidboot.serialno=ca1af25d androidboot.cpuid=0x38acdbc6 androidboot.hwc=CN androidboot.hwlevel=MP androidboot.hwversion=1.9.0 androidboot.secureboot=1 androidboot.dp=0x0 androidboot.baseband=msm msm_drm.dsi_display0=dsi_nt36672a_shenchao_vid_display: androidboot.fpsensor=fpc rootwait ro init=/init androidboot.dtb_idx=-1347440721
+

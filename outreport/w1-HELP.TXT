@@ -1,0 +1,34 @@
+flash - put a boot image back into the phone with no adb
+=====================================================
+
+  1. copy the image onto this volume as BOOTIMG.BIN
+     (8.3, uppercase; about 18 MB for this project)
+  2. flush the volume so Windows writes the directory entry
+     (do not eject: an eject unloads the medium on this host,
+     and the LUN stays gone until the cable is re-plugged)
+  3. write QEAF.CMD containing exactly one line:
+
+       flash recovery BOOTIMG.BIN confirm
+
+  4. flush again, wait ten seconds, then read RESPONSE.TXT
+     with build/read-report-raw.ps1 to see what happened.
+
+Checked before a single byte is written:
+  - the target is 'recovery' and nothing else, and the word
+    confirm has to be on the line: the boot slot that runs
+    Android is never writable from here
+  - /dev/disk/by-name/recovery resolves, and to a node under
+    /dev, so a stale symlink cannot point somewhere surprising
+  - the payload starts with the ANDROID! boot header magic
+  - the payload fits the partition, sized from the kernel's own
+    /proc/partitions rather than from the image's word for it
+Afterwards the partition is read back and compared with these
+clusters, and the result is printed. A flash that cannot be
+verified says so; it does not quietly succeed.
+
+Writing recovery while booted from recovery is safe here: the
+kernel and this initramfs are already in RAM, which is the whole
+reason p77 is the slot that runs qeafinit.
+Volume: 32 MiB FAT16, 4 KiB clusters; the four owned files
+hold clusters 2..42 and everything from 43 on is free for
+the host (8135 clusters, 31 MiB).
