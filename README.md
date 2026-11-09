@@ -14,6 +14,18 @@ USB gadget thật (xem mục riêng bên dưới).
 panel hay LUN trên máy thật. Ảnh p77 hiện tại phải được đóng gói từ
 `homo/build/violet/homo-init` qua `homo/scripts/package_violet.py`.
 
+## Cấu trúc nguồn chuẩn
+
+QeafdropOs dùng **một cây nguồn chuẩn**: `homo/` là hệ điều hành đang được
+build; `core/` và `fs/` ở root là các module dùng chung mà image shipping liên kết.
+Các module nguồn thật trước đây được nối bằng junction từ `VQEAF_OS/` đã
+được chuyển thành thư mục vật lý trong `homo/framework/`, `homo/services/`,
+`homo/platform/violet/` và `homo/scripts/`. Cây `VQEAF_OS/` cũ không còn là
+source root; phần trùng lặp được lưu ngoài repo tại
+`D:\QeafivelsOfficial\QeafdropOs-archive\VQEAF_OS-legacy-duplicates`. Installer
+cũ được giữ tại `homo/legacy/installer/`, không tham gia build. Sơ đồ module và
+lệnh build chuẩn xem tại [`ARCHITECTURE.md`](ARCHITECTURE.md).
+
 ## Bản danh tính OS — QeafdropOs không phải Android
 
 QeafdropOs (`QEAF_OS_STRING = "QeafdropOs 0.1.0"`, nguồn duy nhất

@@ -37,5 +37,33 @@ class EthernetControls(unittest.TestCase):
             self.operation("ethernet-off\teth0", ["/sys/class/net/eth2"])
 
 
+
+class BluetoothControls(unittest.TestCase):
+    def test_mac_validation(self):
+        self.assertEqual(helper.bt_mac('a0:b1:c2:d3:e4:f5'), 'A0:B1:C2:D3:E4:F5')
+        for value in ('not-a-mac', '00:11:22:33:44', '00:11:22:33:44:ZZ'):
+            with self.assertRaises(ValueError):
+                helper.bt_mac(value)
+
+    def test_scan_emits_only_real_devices_from_bluez(self):
+        emitted = []
+        def ctl(*args, **kwargs):
+            if args == ('devices',):
+                return 'Device AA:BB:CC:DD:EE:FF Headphones\nDevice invalid Fake\n'
+            if args == ('info', 'AA:BB:CC:DD:EE:FF'):
+                return 'Device AA:BB:CC:DD:EE:FF\n\tPaired: yes\n\tConnected: no\n'
+            return 'Discovery started'
+        with patch.object(helper, 'bluetoothctl', side_effect=ctl), \
+                patch.object(helper.time, 'sleep'), patch.object(helper, 'emit', side_effect=lambda *v: emitted.append(v)):
+            helper.bluetooth_scan()
+        self.assertIn(('BTDEV', 'AA:BB:CC:DD:EE:FF', -1, 1, 0, helper.hx('Headphones')), emitted)
+        self.assertTrue(any(row[0] == 'OK' for row in emitted))
+
+    def test_pair_operation_validates_address_before_command(self):
+        with patch.object(helper, 'bluetoothctl') as ctl:
+            with self.assertRaises(ValueError):
+                helper.bluetooth_operation('bt-pair', ['invalid'])
+            ctl.assert_not_called()
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,14 @@
+QeafdropOs 0.1.0 - rescue volume
+
+Built in RAM by fat16.c; no partition has to survive for these bytes
+to exist. Read with raw sectors, not the Windows mounted view.
+
+--- commands (QEAF.CMD, one per line)
+  help  status  wifi  sync  usb MODE  echo TEXT  ls
+  rotate 0|90|180|270|auto
+  lang vi|en|zh       switch the UI language
+  snap                 write SCREEN.RAW (240x520 RGB565) for the host
+  flash recovery BOOTIMG.BIN confirm
+
+--- sync
+  DEVINFO.TXT carries VQEAF-SYNC/1 machine state for VQEAF Tool.

@@ -43,6 +43,7 @@ static bool wifi_enabled;
 static bool busy;
 static bool status_after_job;
 static bool scan_when_idle;
+static bool bluetooth_scan_after_status;
 static bool bluetooth_present;
 static bool bluetooth_enabled;
 static bool bluetooth_connected;
@@ -277,9 +278,13 @@ static void bluetooth_device_cb(lv_event_t * event)
     if(busy) return;
     size_t index = (size_t)(uintptr_t)lv_event_get_user_data(event);
     if(index >= network_service.state.bluetooth_count) return;
-    const char * operation = network_service.state.bluetooth_devices[index].paired ? "bt-connect" : "bt-pair";
-    hachimi_wifi_credentials_t credentials = {network_service.state.bluetooth_devices[index].address, "", "OPEN"};
-    request(operation, &credentials);
+    const char * operation = network_service.state.bluetooth_devices[index].connected ? "bt-disconnect" :
+                            network_service.state.bluetooth_devices[index].paired ? "bt-connect" : "bt-pair";
+    if(strcmp(operation, "bt-disconnect") == 0) request(operation, NULL);
+    else {
+        hachimi_wifi_credentials_t credentials = {network_service.state.bluetooth_devices[index].address, "", "OPEN"};
+        request(operation, &credentials);
+    }
 }
 
 static void scan_cb(lv_event_t * event)
@@ -572,13 +577,15 @@ static void render_detail(void)
         for(size_t i = 0; i < count; ++i) {
             const char * name = network_service.state.bluetooth_devices[i].name;
             char subtitle[64];
-            snprintf(subtitle, sizeof(subtitle), "%s ? %s", network_service.state.bluetooth_devices[i].address,
+            snprintf(subtitle, sizeof(subtitle), "%s | %s", network_service.state.bluetooth_devices[i].address,
                      network_service.state.bluetooth_devices[i].paired ? "Paired" : "Not paired");
             int y = 126 + (int)i * 56;
             lv_obj_t * row = panel(detail_body, 0, y, lv_obj_get_width(root) - 28, 50);
             label(row, name[0] ? name : "Bluetooth device", 12, 4, 330, 20, false);
             label(row, subtitle, 12, 26, 330, 18, true);
-            button(row, network_service.state.bluetooth_devices[i].paired ? "Connect" : "Pair", 364, 9, 142, bluetooth_device_cb, (void *)(uintptr_t)i);
+            button(row, network_service.state.bluetooth_devices[i].connected ? "Disconnect" :
+                   network_service.state.bluetooth_devices[i].paired ? "Connect" : "Pair",
+                   364, 9, 142, bluetooth_device_cb, (void *)(uintptr_t)i);
         }
     }
     else {
@@ -624,6 +631,8 @@ static void poll_worker(lv_timer_t * timer)
     memcpy(old_mac, wifi_mac, sizeof(wifi_mac));
     bool old_enabled = wifi_enabled;
     bool failed = apply_network_state();
+    if(!failed && (!strcmp(job, "bt-pair") || !strcmp(job, "bt-connect") || !strcmp(job, "bt-disconnect")))
+        bluetooth_scan_after_status = true;
     bool wifi_changed = strcmp(old_ssid, ssid) != 0 || strcmp(old_ip, wifi_ip) != 0 ||
                         strcmp(old_mac, wifi_mac) != 0 || old_enabled != wifi_enabled;
     if(failed && !network_service.message[0]) {
@@ -640,6 +649,10 @@ static void poll_worker(lv_timer_t * timer)
     if(status_after_job) {
         status_after_job = false;
         request("status", NULL);
+    }
+    else if(bluetooth_scan_after_status && view == VIEW_BLUETOOTH && !dialog) {
+        bluetooth_scan_after_status = false;
+        request("bt-scan", NULL);
     }
     else if(scan_when_idle && view == VIEW_WIFI && !dialog) {
         scan_when_idle = false;
@@ -693,7 +706,7 @@ void ios_network_create(lv_obj_t * parent, const lv_font_t * font, const lv_font
                         const lv_font_t * title_font)
 {
     hachimi_network_init(&network_service);
-    busy = status_after_job = scan_when_idle = false;
+    busy = status_after_job = scan_when_idle = bluetooth_scan_after_status = false;
     dialog = NULL;
     view = VIEW_HOME;
 
