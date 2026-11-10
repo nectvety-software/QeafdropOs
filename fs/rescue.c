@@ -321,6 +321,29 @@ static void run_verbs(struct fat16_volume *vol, const char *cmd, int len,
                     }
                 }
                 note("[    -    ] N qeaf: wifi fw probe answered");
+                /* The packaging step writes this report into the initramfs.
+                 * Print it verbatim so the host sees which WCN3990 blobs the
+                 * image actually carries, not just which directories exist. */
+                {
+                    int fd = open("/etc/qeaf/radio-firmware-status.txt",
+                                  O_RDONLY | O_CLOEXEC);
+                    cat(resp, cap, "wifi fw report: ");
+                    if (fd < 0) {
+                        cat(resp, cap, "absent\n");
+                    } else {
+                        char rep[1024];
+                        ssize_t r = read(fd, rep, sizeof(rep) - 1);
+                        close(fd);
+                        if (r <= 0) {
+                            cat(resp, cap, "empty\n");
+                        } else {
+                            rep[r] = '\0';
+                            cat(resp, cap, "\n");
+                            cat(resp, cap, rep);
+                            if (rep[r - 1] != '\n') cat(resp, cap, "\n");
+                        }
+                    }
+                }
             } else if (sub == 1) {
                 DIR *d = opendir("/sys/class/net");
                 cat(resp, cap, "wifi net: ");

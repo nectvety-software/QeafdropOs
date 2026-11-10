@@ -105,20 +105,62 @@ def stage_root(with_maps):
         shutil.copy2(installer_src,
                      os.path.join(apps_dir, "installer.qeapp"))
 
-    # Wi-Fi/Bluetooth core: stage WCN stock firmware crumbs (vendor.img
-    # etc/wifi/WCNSS_qcom_cfg.ini) so /lib/firmware/wlan/qca_cld exists.
-    # The heavy WCN blob lives in modem p82 + persist p74 (wlan_mac.bin);
-    # those are not in this image yet, so wifi_core honestly reports
-    # NO_FIRMWARE until they are added.
-    fw_src = os.path.join(QEAF, "out", "stock-firmware", "etc", "wifi", "WCNSS_qcom_cfg.ini")
-    if os.path.isfile(fw_src):
-        fw_dir = os.path.join(STAGE, "lib", "firmware", "wlan", "qca_cld")
-        os.makedirs(fw_dir, exist_ok=True)
-        shutil.copy2(fw_src, os.path.join(fw_dir, "WCNSS_qcom_cfg.ini"))
-        # wlan_mac.bin is a symlink to persist on stock; stage an empty
-        # placeholder so the path exists (kernel will still fail checksum
-        # until real persist bytes are staged).
-        open(os.path.join(fw_dir, "wlan_mac.bin"), "wb").close()
+    # Stage extracted stock radio firmware when the owner supplies it. Never
+    # manufacture empty calibration/MAC blobs: those make the kernel probe
+    # fail later and falsely suggest that firmware is installed.
+    stock_fw = os.path.join(QEAF, "out", "stock-firmware")
+    radio_targets = (
+        (os.path.join("vendor", "firmware_mnt", "image"),
+         os.path.join("vendor", "firmware_mnt", "image")),
+        (os.path.join("vendor", "firmware"),
+         os.path.join("vendor", "firmware")),
+        (os.path.join("vendor", "etc", "wifi"),
+         os.path.join("vendor", "etc", "wifi")),
+        (os.path.join("etc", "wifi"),
+         os.path.join("lib", "firmware", "wlan", "qca_cld")),
+    )
+    staged_radio = []
+    for source_rel, target_rel in radio_targets:
+        source = os.path.join(stock_fw, source_rel)
+        if not os.path.isdir(source):
+            continue
+        target = os.path.join(STAGE, target_rel)
+        os.makedirs(target, exist_ok=True)
+        for name in os.listdir(source):
+            src = os.path.join(source, name)
+            dst = os.path.join(target, name)
+            if os.path.isfile(src):
+                shutil.copy2(src, dst)
+                if os.path.getsize(dst) > 0:
+                    staged_radio.append(target_rel.replace(os.sep, "/") + "/" + name)
+    required_radio = (
+        "adsp.mdt", "wlanmdsp.mbn", "WCNSS_qcom_cfg.ini",
+        "bdwlan.bin or WCNSS_qcom_wlan_nv.bin", "wlan_mac.bin",
+    )
+    present_names = {os.path.basename(item) for item in staged_radio}
+    missing_radio = [name for name in required_radio if
+                     (name == "bdwlan.bin or WCNSS_qcom_wlan_nv.bin" and
+                      not ({"bdwlan.bin", "WCNSS_qcom_wlan_nv.bin"} & present_names)) or
+                     (name != "bdwlan.bin or WCNSS_qcom_wlan_nv.bin" and
+                      name not in present_names)]
+    radio_dir = os.path.join(STAGE, "etc", "qeaf")
+    os.makedirs(radio_dir, exist_ok=True)
+    with open(os.path.join(radio_dir, "radio-firmware-status.txt"), "w", encoding="utf-8") as handle:
+        handle.write("WCN3990 firmware staging report\n")
+        handle.write("Staged non-empty files:\n")
+        for name in sorted(staged_radio):
+            handle.write("  " + name + "\n")
+        handle.write("Missing requirements:\n")
+        for name in missing_radio:
+            handle.write("  " + name + "\n")
+        if not missing_radio:
+            handle.write("  none\n")
+    if missing_radio:
+        print("package_violet: WARNING - Wi-Fi/Bluetooth firmware incomplete: " +
+              ", ".join(missing_radio))
+    else:
+        print("package_violet: complete WCN3990 firmware set staged (%d files)" %
+              len(staged_radio))
 
     if with_maps:
         copy_tree(MAPS, os.path.join(STAGE, "assets", "maps"))

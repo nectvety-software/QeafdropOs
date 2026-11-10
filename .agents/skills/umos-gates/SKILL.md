@@ -113,6 +113,7 @@ $env:PATH="C:\msys64\usr\bin;$env:PATH"
 make violet-core-check      # panel_scale_test (540x1170 no bars, 1170x540, stride 1088) + validate_bootimg + audit_rescue_channel + identity
 make rescue-channel-check   # fs/rescue.c + p77 slot, 39 checks (incl. wifi sub-verbs text)
 make storage-check          # 31 checks, VQEAF/UserData/Install + nested fat16_mkdir_in + Python reader
+make radio-firmware-check   # WCN3990 staging report + state text (2 Python cases + host probe)
 make check                  # legacy compile, 21 objects
 ```
 

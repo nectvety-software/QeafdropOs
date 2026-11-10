@@ -78,7 +78,7 @@ INCLUDES := -I. \
 
 OBJS := $(patsubst %.c,$(OUT)/%.o,$(SRCS))
 
-.PHONY: os all bootimg check guard-test bootui-render wifi-check bt-check usb-check rescue-channel-check keyboard-check features-check violet-core-check power-check motion-check storage-check language-check prefs-test prefs-boot-test homo-i18n-test i18n-catalog-check vi-font-check ios-metrics-check display-default-check clean
+.PHONY: os all bootimg check guard-test bootui-render wifi-check bt-check usb-check rescue-channel-check keyboard-check features-check violet-core-check power-check motion-check storage-check language-check prefs-test prefs-boot-test homo-i18n-test i18n-catalog-check vi-font-check ios-metrics-check display-default-check radio-state-check radio-firmware-check clean
 
 HOST_ZIG ?= out/toolchain/zig-windows-x86_64-0.13.0/zig.exe
 # zig spawned by make cannot reach the Windows AppData cache and dies
@@ -96,7 +96,7 @@ P77_IMAGE ?=
 
 # THE single shipping OS: Homo-derived LVGL desktop + shared fs/ rescue channel,
 # one static aarch64-musl PID 1, one validated p77 image, one version.
-os: homo-i18n-test ios-metrics-check display-default-check
+os: homo-i18n-test ios-metrics-check display-default-check radio-firmware-check
 	python3 homo/scripts/build_violet.py
 	python3 homo/scripts/package_violet.py
 	python3 scripts/validate_bootimg.py $(OUT)/boot-qeafdropos-violet.img
@@ -388,6 +388,23 @@ violet-core-check:
 	python3 -c "import sys; d=open('homo/build/violet/homo-init','rb').read(); \
 		sys.exit(0 if b'QeafdropOs 0.1.0' in d else 1)" && \
 		echo "ok   homo-init carries the single QeafdropOs 0.1.0 identity"
+
+# WCN3990 firmware staging is part of the shipping image: package_violet.py
+# must copy non-empty blobs and write an honest status report, never create
+# zero-byte calibration placeholders. The Python gate supplies both the
+# missing-firmware negative control and the complete-set positive control.
+# The C gate proves the runtime state text agrees with its own probe.
+RADIO_STATE_SRCS := homo/tests/radio_state_smoke.c \
+                    homo/framework/core/wifi_core.c \
+                    homo/framework/core/bluetooth_core.c
+
+radio-state-check: | $(OUT)
+	$(HOST_ZIG) cc -O1 -Wall -Wextra -Ihomo $(RADIO_STATE_SRCS) \
+		-o $(OUT)/radio_state_smoke.exe
+	./$(OUT)/radio_state_smoke.exe
+
+radio-firmware-check: radio-state-check
+	python3 homo/tests/radio_firmware_package_smoke.py
 
 clean:
 	rm -rf $(OUT)

@@ -328,6 +328,16 @@ SIGNAL_MBM là dBm×100, RSN AKM suite để phân WPA2/WPA3, freq→channel mat
 sort theo RSSI giảm dần. Driver BT `bluetooth_hci.c` parse fixed-record 64 byte
 (`QBT1` magic + count), sort connected lên đầu rồi theo RSSI.
 
+### Firmware WCN3990
+
+`homo/framework/core/wifi_core.c` chỉ coi firmware là đủ khi có đủ
+`adsp.mdt`, `wlanmdsp.mbn`, `WCNSS_qcom_cfg.ini`, `bdwlan.bin` (hoặc
+`WCNSS_qcom_wlan_nv.bin`) và `wlan_mac.bin`. `homo/scripts/package_violet.py`
+chỉ chép file non-empty từ `out/stock-firmware/`, không tạo blob rỗng, và ghi
+báo cáo `/etc/qeaf/radio-firmware-status.txt` trong initramfs. Gate:
+`make radio-firmware-check` (thiếu firmware = negative control, đủ bộ = positive
+control).
+
 ### Màn GUI
 
 Cả Wi-Fi và BT có hai trang: **list** và **details**. Settings hub

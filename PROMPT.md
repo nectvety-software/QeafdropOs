@@ -61,6 +61,7 @@ make violet-core-check   # panel_scale 540x1170/1170x540 + validate + audit
 make rescue-channel-check # 39 checks
 make storage-check       # 31 checks, VQEAF/UserData/Install + nested
 make check               # 21 objects
+make radio-firmware-check # WCN3990 staging (missing=negative, complete=positive) + state text
 python scripts\validate_bootimg.py out\boot-qeafdropos-violet.img
 ```
 
